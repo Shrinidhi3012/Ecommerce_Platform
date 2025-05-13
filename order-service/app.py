@@ -1,9 +1,10 @@
 from flask import Flask, jsonify, request
+from prometheus_flask_exporter import PrometheusMetrics
 import psycopg2
 import os
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 # Database connection details
 DB_HOST = os.environ.get("DB_HOST", "postgres")
 DB_NAME = os.environ.get("DB_NAME", "ecommerce")
