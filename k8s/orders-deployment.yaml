@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-deployment
+  name: orders-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: order
+      app: orders
   template:
     metadata:
       labels:
-        app: order
+        app: orders
     spec:
       containers:
       - name: order
@@ -27,14 +27,21 @@ spec:
           value: ecommerce_user
         - name: DB_PASS
           value: secret123
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-service
+  name: orders-service
 spec:
   selector:
-    app: order
+    app: orders
   ports:
   - protocol: TCP
     port: 80
